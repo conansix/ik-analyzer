@@ -61,9 +61,6 @@ public class DictSegment {
 
     /**
      * 匹配词段
-     *
-     * @param charArray
-     * @return Hit
      */
     public Hit match(char[] charArray) {
         return this.match(charArray, 0, charArray.length, null);
@@ -71,11 +68,6 @@ public class DictSegment {
 
     /**
      * 匹配词段
-     *
-     * @param charArray
-     * @param begin
-     * @param length
-     * @return Hit
      */
     public Hit match(char[] charArray, int begin, int length) {
         return this.match(charArray, begin, length, null);
@@ -83,28 +75,17 @@ public class DictSegment {
 
     /**
      * 匹配词段
-     *
-     * @param charArray
-     * @param begin
-     * @param length
-     * @param searchHit
-     * @return Hit
      */
     public Hit match(char[] charArray, int begin, int length, Hit searchHit) {
-
         if (searchHit == null) {
-            //如果hit为空，新建
-            searchHit = new Hit();
-            //设置hit的其实文本位置
-            searchHit.setBegin(begin);
+            searchHit = new Hit();//如果hit为空，新建
+            searchHit.setBegin(begin);//设置hit的起始文本位置
         } else {
-            //否则要将HIT状态重置
-            searchHit.setUnmatch();
+            searchHit.setUnmatch();//否则要将HIT状态重置
         }
-        //设置hit的当前处理位置
-        searchHit.setEnd(begin);
+        searchHit.setEnd(begin);//设置hit的当前处理位置
 
-        Character keyChar = new Character(charArray[begin]);
+        Character keyChar = charArray[begin];
         DictSegment ds = null;
 
         //引用实例变量为本地变量，避免查询时遇到更新的同步问题
