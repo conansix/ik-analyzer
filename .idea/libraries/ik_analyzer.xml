@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="ik-analyzer">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lucene-core-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/junit.jar!/" />
+      <root url="jar://$PROJECT_DIR$/apache-solr-core-1.4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
