@@ -216,10 +216,10 @@ public class SegmentorTester extends TestCase{
 		long begin = System.currentTimeMillis();   
 		try {
 			Lexeme l = null;
-//			while( (l = ikSeg.next()) != null){
-//				System.out.println(l);
-//			}
-			while( ikSeg.next()!= null);
+			while( (l = ikSeg.next()) != null){
+				System.out.println(l);
+			}
+//			while( ikSeg.next()!= null);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
