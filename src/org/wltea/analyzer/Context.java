@@ -12,26 +12,37 @@ import java.util.Set;
  * @author 林良益
  */
 public class Context {
-
-    //是否使用最大词长切分（粗粒度）
+    /**
+     * 是否使用最大词长切分（粗粒度）
+     */
     private boolean isMaxWordLength = false;
-    //记录Reader内已分析的字串总长度
-    //在分多段分析词元时，该变量累计当前的segmentBuff相对于reader的位移
+    /**
+     * 记录Reader内已分析的字串总长度
+     * 在分多段分析词元时，该变量累计当前的segmentBuff相对于reader的位移
+     */
     private int buffOffset;
-    //最近一次读入的,可处理的字串长度
+    /**
+     * 最近一次读入的,可处理的字串长度
+     */
     private int available;
-    //最近一次分析的字串长度
+    /**
+     * 最近一次分析的字串长度
+     */
     private int lastAnalyzed;
-    //当前缓冲区位置指针
+    /**
+     * 当前缓冲区位置指针
+     */
     private int cursor;
-    //字符窜读取缓冲
+    /**
+     * 字符窜读取缓冲
+     */
     private char[] segmentBuff;
-    /*
+    /**
      * 记录正在使用buffer的分词器对象
      * 如果set中存在有分词器对象，则buffer不能进行位移操作（处于locked状态）
      */
     private Set<ISegmenter> buffLocker;
-    /*
+    /**
      * 词元结果集，为每次游标的移动，存储切分出来的词元
      */
     private IKSortedLinkSet lexemeSet;
