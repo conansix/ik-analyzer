@@ -18,9 +18,8 @@ import java.util.Map;
  * @author 林良益
  */
 public class DictSegment {
-
     //公用字典表，存储汉字
-    private static final Map<Character, Character> charMap = new HashMap<Character, Character>(16, 0.95f);
+    private static final Map<Character, Character> charMap = new HashMap<>(16, 0.95f);
 
     //数组大小上限
     private static final int ARRAY_LENGTH_LIMIT = 3;
@@ -93,27 +92,21 @@ public class DictSegment {
         Map<Character, DictSegment> segmentMap = this.childrenMap;
 
         //STEP1 在节点中查找keyChar对应的DictSegment
-        if (segmentArray != null) {
-            //在数组中查找
+        if (segmentArray != null) {//在数组中查找
             for (DictSegment seg : segmentArray) {
                 if (seg != null && seg.nodeChar.equals(keyChar)) {
-                    //找到匹配的段
-                    ds = seg;
+                    ds = seg;//找到匹配的段
                 }
             }
-        } else if (segmentMap != null) {
-            //在map中查找
-            ds = (DictSegment) segmentMap.get(keyChar);
+        } else if (segmentMap != null) {//在map中查找
+            ds = segmentMap.get(keyChar);
         }
 
         //STEP2 找到DictSegment，判断词的匹配状态，是否继续递归，还是返回结果
         if (ds != null) {
-            if (length > 1) {
-                //词未匹配完，继续往下搜索
+            if (length > 1) {//词未匹配完，继续往下搜索
                 return ds.match(charArray, begin + 1, length - 1, searchHit);
-            } else if (length == 1) {
-
-                //搜索最后一个char
+            } else if (length == 1) {//搜索最后一个char
                 if (ds.nodeState == 1) {
                     //添加HIT状态为完全匹配
                     searchHit.setMatch();
@@ -134,8 +127,6 @@ public class DictSegment {
 
     /**
      * 加载填充词典片段
-     *
-     * @param charArray
      */
     public void fillSegment(char[] charArray) {
         this.fillSegment(charArray, 0, charArray.length);
@@ -143,23 +134,18 @@ public class DictSegment {
 
     /**
      * 加载填充词典片段
-     *
-     * @param charArray
-     * @param begin
-     * @param length
      */
     public synchronized void fillSegment(char[] charArray, int begin, int length) {
         //获取字典表中的汉字对象
-        Character beginChar = new Character(charArray[begin]);
+        Character beginChar = charArray[begin];
         Character keyChar = charMap.get(beginChar);
         //字典中没有该字，则将其添加入字典
         if (keyChar == null) {
             charMap.put(beginChar, beginChar);
             keyChar = beginChar;
         }
-
         //搜索当前节点的存储，查询对应keyChar的keyChar，如果没有则创建
-        DictSegment ds = lookforSegment(keyChar);
+        DictSegment ds = lookForSegment(keyChar);
         //处理keyChar对应的segment
         if (length > 1) {
             //词元还没有完全加入词典树
@@ -168,20 +154,14 @@ public class DictSegment {
             //已经是词元的最后一个char,设置当前节点状态为1，表明一个完整的词
             ds.nodeState = 1;
         }
-
     }
 
     /**
      * 查找本节点下对应的keyChar的segment
      * 如果没有找到，则创建新的segment
-     *
-     * @param keyChar
-     * @return
      */
-    private DictSegment lookforSegment(Character keyChar) {
-
+    private DictSegment lookForSegment(Character keyChar) {
         DictSegment ds = null;
-
         if (this.storeSize <= ARRAY_LENGTH_LIMIT) {
             //获取数组容器，如果数组未创建则创建数组
             DictSegment[] segmentArray = getChildrenArray();
@@ -215,14 +195,12 @@ public class DictSegment {
                     //释放当前的数组引用
                     this.childrenArray = null;
                 }
-
             }
-
         } else {
             //获取Map容器，如果Map未创建,则创建Map
             Map<Character, DictSegment> segmentMap = getChildrenMap();
             //搜索Map
-            ds = (DictSegment) segmentMap.get(keyChar);
+            ds = segmentMap.get(keyChar);
             if (ds == null) {
                 //构造新的segment
                 ds = new DictSegment(keyChar);
@@ -231,7 +209,6 @@ public class DictSegment {
                 this.storeSize++;
             }
         }
-
         return ds;
     }
 
@@ -259,7 +236,7 @@ public class DictSegment {
         if (this.childrenMap == null) {
             synchronized (this) {
                 if (this.childrenMap == null) {
-                    this.childrenMap = new HashMap<Character, DictSegment>(ARRAY_LENGTH_LIMIT * 2, 0.8f);
+                    this.childrenMap = new HashMap<>(ARRAY_LENGTH_LIMIT * 2, 0.8f);
                 }
             }
         }
@@ -268,8 +245,6 @@ public class DictSegment {
 
     /**
      * 将数组中的segment迁移到Map中
-     *
-     * @param segmentArray
      */
     private void migrate(DictSegment[] segmentArray, Map<Character, DictSegment> segmentMap) {
         for (DictSegment segment : segmentArray) {
