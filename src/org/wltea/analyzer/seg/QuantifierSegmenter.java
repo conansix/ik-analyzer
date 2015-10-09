@@ -23,22 +23,12 @@ import java.util.Set;
  * @author 林良益
  */
 public class QuantifierSegmenter implements ISegmenter {
-
-    //阿拉伯数词前缀（货币符号）
-//	public static String Arabic_Num_Pre = "-+$￥";//Apre
-//	private static Set<Character> ArabicNumPreChars = new HashSet<Character>();
-//	static{
-//		char[] ca = Arabic_Num_Pre.toCharArray();
-//		for(char nChar : ca){
-//			ArabicNumPreChars.add(nChar);
-//		}
-//	}
-//	public static final int NC_ANP = 01;	
     //阿拉伯数字0-9
     public static final int NC_ARABIC = 02;
     //阿拉伯数词链接符号
     public static String Arabic_Num_Mid = ",./:Ee";//Amid
-    private static Set<Character> ArabicNumMidChars = new HashSet<Character>();
+    private static Set<Character> ArabicNumMidChars = new HashSet<>();
+    public static final int NC_ANM = 03;
 
     static {
         char[] ca = Arabic_Num_Mid.toCharArray();
@@ -47,17 +37,14 @@ public class QuantifierSegmenter implements ISegmenter {
         }
     }
 
-    public static final int NC_ANM = 03;
-//	//阿拉伯数词后缀
-//	public static String Arabic_Num_End = "%‰";//Aend
-//	public static final int NC_ANE = 04;
-
     //序数词（数词前缀）
     public static String Num_Pre = "第初";//Cpre
     public static final int NC_NP = 11;
+
     //中文数词
-    public static String Chn_Num = "○一二两三四五六七八九十零壹贰叁肆伍陆柒捌玖拾百千万亿拾佰仟萬億兆卅廿";//Cnum
-    private static Set<Character> ChnNumberChars = new HashSet<Character>();
+    public static String Chn_Num = "○一二两三四五六七八九十零壹贰叁肆伍陆柒捌玖拾百佰千仟万萬亿億兆廿卅";//Cnum
+    private static Set<Character> ChnNumberChars = new HashSet<>();
+    public static final int NC_CHINESE = 12;
 
     static {
         char[] ca = Chn_Num.toCharArray();
@@ -66,14 +53,14 @@ public class QuantifierSegmenter implements ISegmenter {
         }
     }
 
-    public static final int NC_CHINESE = 12;
     //中文数词连接符
     public static String Chn_Num_Mid = "点";//Cmid
     public static final int NC_CNM = 13;
 
     //约数词（数词结尾）
     public static String Num_End = "几多余半";//Cend
-    private static Set<Character> NumEndChars = new HashSet<Character>();
+    private static Set<Character> NumEndChars = new HashSet<>();
+    public static final int NC_NE = 14;
 
     static {
         char[] ca = Num_End.toCharArray();
@@ -81,8 +68,6 @@ public class QuantifierSegmenter implements ISegmenter {
             NumEndChars.add(nChar);
         }
     }
-
-    public static final int NC_NE = 14;
 
 //	//GB库中的罗马字符(起始、中间、结束)
 //	public static String Rome_Num = "ⅠⅡⅢⅣⅤⅥⅧⅨⅩⅪ"; //Rnum
@@ -99,7 +84,7 @@ public class QuantifierSegmenter implements ISegmenter {
     public static final int NaN = -99;
 
     //所有的可能数词
-    private static Set<Character> AllNumberChars = new HashSet<Character>(256);
+    private static Set<Character> AllNumberChars = new HashSet<>(256);
 
     static {
         char[] ca = null;
@@ -135,31 +120,31 @@ public class QuantifierSegmenter implements ISegmenter {
 
     }
 
-    /*
+    /**
      * 词元的开始位置，
      * 同时作为子分词器状态标识
      * 当start > -1 时，标识当前的分词器正在处理字符
      */
     private int nStart;
-    /*
+    /**
      * 记录词元结束位置
      * end记录的是在词元中最后一个出现的合理的数词结束
      */
     private int nEnd;
-    /*
+    /**
      * 当前数词的状态
      */
     private int nStatus;
-    /*
+    /**
      * 捕获到一个数词
      */
     private boolean fCaN;
 
-    /*
+    /**
      * 量词起始位置
      */
     private int countStart;
-    /*
+    /**
      * 量词终止位置
      */
     private int countEnd;

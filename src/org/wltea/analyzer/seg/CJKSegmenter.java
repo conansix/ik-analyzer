@@ -24,11 +24,11 @@ import java.util.List;
  * @version 3.2
  */
 public class CJKSegmenter implements ISegmenter {
-    /*
+    /**
      * 已完成处理的位置
      */
     private int doneIndex;
-    /*
+    /**
      * Hit对列，记录匹配中的Hit对象
      */
     private List<Hit> hitList;
