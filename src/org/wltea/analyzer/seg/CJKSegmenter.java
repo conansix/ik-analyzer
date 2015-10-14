@@ -171,12 +171,12 @@ public class CJKSegmenter implements ISegmenter {
     /**
      * 处理未知词段
      *
-     * @param segmentBuff
+     * @param segmentBuff 待处理词段
      * @param uBegin      起始位置
      * @param uEnd        终止位置
      */
     private void processUnknown(char[] segmentBuff, Context context, int uBegin, int uEnd) {
-        Lexeme newLexeme = null;
+        Lexeme newLexeme;
 
         Hit hit = Dictionary.matchInPrepDict(segmentBuff, uBegin, 1);
         if (hit.isUnmatch()) {//不是副词或介词

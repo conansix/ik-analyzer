@@ -68,13 +68,9 @@ public final class Lexeme implements Comparable<Lexeme> {
 
         if (o instanceof Lexeme) {
             Lexeme other = (Lexeme) o;
-            if (this.offset == other.getOffset()
+            return this.offset == other.getOffset()
                     && this.begin == other.getBegin()
-                    && this.length == other.getLength()) {
-                return true;
-            } else {
-                return false;
-            }
+                    && this.length == other.getLength();
         } else {
             return false;
         }
@@ -180,7 +176,7 @@ public final class Lexeme implements Comparable<Lexeme> {
     }
 
     public void setLength(int length) {
-        if (this.length < 0) {
+        if (length < 0) {
             throw new IllegalArgumentException("length < 0");
         }
         this.length = length;

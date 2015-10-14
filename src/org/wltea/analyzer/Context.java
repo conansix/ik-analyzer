@@ -111,8 +111,7 @@ public class Context {
     }
 
     /**
-     * 只要buffLocker中存在ISegmenter对象
-     * 则buffer被锁定
+     * 只要buffLocker中存在ISegmenter对象，则buffer被锁定
      *
      * @return boolean 缓冲去是否被锁定
      */
@@ -325,8 +324,6 @@ public class Context {
         private int size() {
             return this.size;
         }
-
-
     }
 
 }
