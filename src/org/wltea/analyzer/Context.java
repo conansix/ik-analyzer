@@ -47,7 +47,6 @@ public class Context {
      */
     private IKSortedLinkSet lexemeSet;
 
-
     Context(char[] segmentBuff, boolean isMaxWordLength) {
         this.isMaxWordLength = isMaxWordLength;
         this.segmentBuff = segmentBuff;
