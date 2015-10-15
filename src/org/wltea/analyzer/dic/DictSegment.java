@@ -85,7 +85,7 @@ public class DictSegment {
         searchHit.setEnd(begin);//设置hit的当前处理位置
 
         Character keyChar = charArray[begin];
-        DictSegment ds = null;
+         DictSegment ds = null;
 
         //引用实例变量为本地变量，避免查询时遇到更新的同步问题
         DictSegment[] segmentArray = this.childrenArray;

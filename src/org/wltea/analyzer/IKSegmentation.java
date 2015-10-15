@@ -63,10 +63,10 @@ public final class IKSegmentation {
     public synchronized Lexeme next() throws IOException {
         if (context.getResultSize() == 0) {
             /*
-			 * 从reader中读取数据，填充buffer
-			 * 如果reader是分次读入buffer的，那么buffer要进行移位处理
-			 * 移位处理上次读入的但未处理的数据
-			 */
+             * 从reader中读取数据，填充buffer
+             * 如果reader是分次读入buffer的，那么buffer要进行移位处理
+             * 移位处理上次读入的但未处理的数据
+             */
             int available = fillBuffer(input);
 
             if (available <= 0) {
@@ -85,13 +85,13 @@ public final class IKSegmentation {
                         segmenter.nextLexeme(segmentBuff, context);
                     }
                     analyzedLength++;
-        			/*
-        			 * 满足一下条件时，
-        			 * 1.available == BUFF_SIZE 表示buffer满载
-        			 * 2.buffIndex < available - 1 && buffIndex > available - BUFF_EXHAUST_CRITICAL表示当前指针处于临界区内
-        			 * 3.!context.isBufferLocked()表示没有segmenter在占用buffer
-        			 * 要中断当前循环（buffer要进行移位，并再读取数据的操作）
-        			 */
+                    /*
+                     * 满足一下条件时，
+                     * 1.available == BUFF_SIZE 表示buffer满载
+                     * 2.buffIndex < available - 1 && buffIndex > available - BUFF_EXHAUST_CRITICAL表示当前指针处于临界区内
+                     * 3.!context.isBufferLocked()表示没有segmenter在占用buffer
+                     * 要中断当前循环（buffer要进行移位，并再读取数据的操作）
+                     */
                     if (available == BUFF_SIZE
                             && buffIndex < available - 1
                             && buffIndex > available - BUFF_EXHAUST_CRITICAL

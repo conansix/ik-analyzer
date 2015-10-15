@@ -248,7 +248,7 @@ public final class Lexeme implements Comparable<Lexeme> {
         return strbuf.toString();
     }
 
-    Lexeme getPrev() {
+    public Lexeme getPrev() {
         return prev;
     }
 
@@ -256,7 +256,7 @@ public final class Lexeme implements Comparable<Lexeme> {
         this.prev = prev;
     }
 
-    Lexeme getNext() {
+    public Lexeme getNext() {
         return next;
     }
 

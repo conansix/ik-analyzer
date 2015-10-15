@@ -152,6 +152,16 @@ public class SegmentorTester extends TestCase {
         }
     }
 
+    public void testSimpleChinese() throws IOException {
+        String t = "福州大学周边的必胜客";
+        System.out.println(t);
+        IKSegmentation ikSeg = new IKSegmentation(new StringReader(t));
+        Lexeme l;
+        while ((l = ikSeg.next()) != null) {
+            System.out.println(l);
+        }
+    }
+
     public static void main(String[] args) {
         String testString = "";
         for (int i = 0; i < 300; i++) {
